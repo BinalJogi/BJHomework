@@ -20,7 +20,7 @@ class MovieListViewController: UIViewController {
         super.viewDidLoad()
         
         barSearch.delegate = self
-        tableView.delegate = self
+//        tableView.delegate = self
         tableView.dataSource = self
         setUpBinding()
     }
@@ -69,11 +69,11 @@ extension MovieListViewController: UITableViewDataSource {
     }
 }
 
-extension MovieListViewController: UITableViewDelegate{
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100.0
-    }
-}
+//extension MovieListViewController: UITableViewDelegate{
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 100.0
+//    }
+//}
 
 extension MovieListViewController: UISearchBarDelegate{
     
@@ -85,7 +85,7 @@ extension MovieListViewController: UISearchBarDelegate{
         }
         else{
             for movie in viewModel.movies {
-                if movie.overview.lowercased().contains(searchText.lowercased()) && movie.originalTitle.lowercased().contains(searchText.lowercased()){
+                if movie.overview.lowercased().contains(searchText.lowercased()) || movie.originalTitle.lowercased().contains(searchText.lowercased()){
                     viewModel.filteredData.append(movie)
                 }
         }

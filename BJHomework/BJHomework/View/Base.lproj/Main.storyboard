@@ -68,6 +68,9 @@
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="MAl-Cg-Bs8">
                                 <rect key="frame" x="10" y="139" width="394" height="51"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="yLb-oC-H7l" id="MAi-I2-PQY"/>
+                                </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UZz-ab-hfQ">
                                 <rect key="frame" x="0.0" y="200" width="414" height="662"/>
@@ -161,7 +164,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="barSearch" destination="MAl-Cg-Bs8" id="BXj-GO-zZ2"/>
+                        <outlet property="barSearch" destination="MAl-Cg-Bs8" id="n64-uV-1f3"/>
                         <outlet property="tableView" destination="UZz-ab-hfQ" id="coq-EA-zrY"/>
                     </connections>
                 </viewController>
