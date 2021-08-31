@@ -22,12 +22,11 @@ class MovieCell: UITableViewCell {
         lblOverview.text = overview
         imgImageView.image = nil
         if let data = imageData {
-            imgImageView.image = UIImage(data: data)        }
-        
+            imgImageView.image = UIImage(data: data)
+        }
     }
     
     @IBAction func btnShowDeatils(_ sender: Any) {
         
     }
-    
 }

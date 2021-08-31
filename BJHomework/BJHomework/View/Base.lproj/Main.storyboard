@@ -161,6 +161,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="barSearch" destination="MAl-Cg-Bs8" id="BXj-GO-zZ2"/>
                         <outlet property="tableView" destination="UZz-ab-hfQ" id="coq-EA-zrY"/>
                     </connections>
                 </viewController>
