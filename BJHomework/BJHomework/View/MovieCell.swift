@@ -11,10 +11,12 @@ import UIKit
 class MovieCell: UITableViewCell {
 
     static let identifier = "MovieCell"
+    var link : MovieListViewController?
 
     @IBOutlet private weak var lblTitle: UILabel!
     @IBOutlet private weak var lblOverview: UILabel!
     @IBOutlet private weak var imgImageView: UIImageView!
+    @IBOutlet weak var btnStar: UIButton!
     
     func configureCell(title: String?, overview: String?, imageData: Data? ){
         
@@ -27,6 +29,13 @@ class MovieCell: UITableViewCell {
     }
     
     @IBAction func btnShowDeatils(_ sender: Any) {
-        
     }
+    @IBAction func btnStar(_ sender: Any) {
+        btnStar.addTarget(self, action: #selector(markAsFavourite), for: .touchUpInside)
+    }
+    @objc func markAsFavourite(){
+        print("Mark as Fav")
+        link?.favourite(cell: self)
+    }
+    
 }

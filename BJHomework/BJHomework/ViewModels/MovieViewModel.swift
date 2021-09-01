@@ -23,10 +23,12 @@ class MovieViewModel{
     func getTitle(at row: Int)-> String { filteredData[row].originalTitle }
     func getOverview(at row: Int)-> String { filteredData[row].overview}
     
+    
     //MARK:- private properties
      var movies = [Movie]()
-    var filteredData = [Movie]()
-    private let networkManager = NetworkManager()
+     var filteredData = [Movie]()
+     var favArrayMovies = [Movie]()
+     private let networkManager = NetworkManager()
     
     //MARK:- internal properties
     

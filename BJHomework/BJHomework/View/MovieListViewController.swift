@@ -10,11 +10,11 @@ import UIKit
 class MovieListViewController: UIViewController {
     
     @IBOutlet private weak var tableView: UITableView!
-    
     @IBOutlet weak var barSearch: UISearchBar!
     
-    private let viewModel = MovieViewModel()
+    var selectedIndex = 0
     
+    private let viewModel = MovieViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +34,19 @@ class MovieListViewController: UIViewController {
     @IBAction func btnEdit(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func segment(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0{
+            selectedIndex = 0
+        }
+        else if sender.selectedSegmentIndex == 1{
+            selectedIndex = 1
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
 }
 
 extension MovieListViewController: MovieViewModelDelegate {
@@ -50,22 +63,55 @@ extension MovieListViewController: MovieViewModelDelegate {
     }
 }
 
-
 extension MovieListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.count
+        if selectedIndex == 0 {
+            return viewModel.count
+        }
+        else {
+            return viewModel.favArrayMovies.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieCell.identifier, for: indexPath) as? MovieCell
-        else {
+            else {
             return UITableViewCell()
         }
         let row = indexPath.row
-        let title = viewModel.getTitle(at: row)
-        let overview = viewModel.getOverview(at: row)
+        var title = ""
+        var overview = ""
+        if selectedIndex == 0 {
+             title = viewModel.getTitle(at: row)
+             overview = viewModel.getOverview(at: row)
+        }else{
+            title = viewModel.favArrayMovies[row].originalTitle
+            overview = viewModel.favArrayMovies[row].overview
+        }
+        
+        cell.btnStar.tintColor = viewModel.movies[row].isFavourite ? UIColor.red : .lightGray
+        
         cell.configureCell(title: title, overview: overview, imageData: nil)
+        cell.link = self
         return cell
+    }
+    
+    func favourite(cell : MovieCell){
+        let indexPathTapped = tableView.indexPath(for: cell)
+        let favourites = viewModel.filteredData[indexPathTapped!.row].isFavourite
+        let movie = viewModel.filteredData[indexPathTapped!.row]
+        print(movie)
+        if favourites {
+            viewModel.favArrayMovies.remove(object: movie)
+        }else{
+            viewModel.favArrayMovies.append(movie)
+        }
+        viewModel.filteredData[indexPathTapped!.row].isFavourite = !favourites
+        
+        tableView.reloadRows(at: [indexPathTapped!], with: .fade)
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
     }
 }
 
@@ -96,6 +142,16 @@ extension MovieListViewController: UISearchBarDelegate{
         }
         
     }
+}
+
+extension Array where Element: Equatable {
+
+    // Remove first collection element that is equal to the given `object`:
+    mutating func remove(object: Element) {
+        guard let index = firstIndex(of: object) else {return}
+        remove(at: index)
+    }
+
 }
 
 

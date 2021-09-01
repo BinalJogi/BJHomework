@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MoviesResponse: Decodable {
+struct MoviesResponse: Decodable, Equatable {
     let page: Int
     let results: [Movie]
     let totalPages, totalResults : Int
@@ -18,4 +18,5 @@ struct MoviesResponse: Decodable {
         case totalPages = "total_pages"
     }
 }
+
 

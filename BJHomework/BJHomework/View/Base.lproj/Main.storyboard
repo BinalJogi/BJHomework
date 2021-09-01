@@ -64,6 +64,9 @@
                                     <segment title="Movies List"/>
                                     <segment title="Favorites"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segment:" destination="yLb-oC-H7l" eventType="valueChanged" id="SvI-4K-eZS"/>
+                                </connections>
                             </segmentedControl>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="MAl-Cg-Bs8">
                                 <rect key="frame" x="10" y="139" width="394" height="51"/>
@@ -112,6 +115,13 @@
                                                         <action selector="btnShowDeatils:" destination="w5P-3t-jZx" eventType="touchUpInside" id="lde-JW-dUo"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNX-Lb-bMj">
+                                                    <rect key="frame" x="221" y="112" width="76" height="30"/>
+                                                    <state key="normal" title="Button" image="star.fill" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="btnStar:" destination="w5P-3t-jZx" eventType="touchUpInside" id="SMC-ao-LVy"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="0Rv-NE-H2s" firstAttribute="leading" secondItem="5gk-Rd-ulu" secondAttribute="trailing" constant="5" id="A3v-nC-ntH"/>
@@ -119,15 +129,19 @@
                                                 <constraint firstItem="5gk-Rd-ulu" firstAttribute="leading" secondItem="W58-fc-MVi" secondAttribute="leadingMargin" id="Bwf-3k-1IA"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Gi8-eO-VK6" secondAttribute="trailing" id="E1K-S2-7BJ"/>
                                                 <constraint firstItem="0Rv-NE-H2s" firstAttribute="top" secondItem="Gi8-eO-VK6" secondAttribute="bottom" constant="10" id="Jx6-gm-72M"/>
+                                                <constraint firstItem="89b-7N-ahh" firstAttribute="leading" secondItem="UNX-Lb-bMj" secondAttribute="trailing" constant="20" id="Knf-Y7-ouh"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="5gk-Rd-ulu" secondAttribute="bottom" constant="10" id="O3d-5v-YWj"/>
                                                 <constraint firstItem="0Rv-NE-H2s" firstAttribute="trailing" secondItem="W58-fc-MVi" secondAttribute="trailingMargin" id="OZt-bC-QNc"/>
                                                 <constraint firstItem="Gi8-eO-VK6" firstAttribute="leading" secondItem="5gk-Rd-ulu" secondAttribute="trailing" constant="5" id="Y1A-7M-MC1"/>
+                                                <constraint firstItem="89b-7N-ahh" firstAttribute="height" secondItem="UNX-Lb-bMj" secondAttribute="height" id="bIM-zZ-tQu"/>
                                                 <constraint firstAttribute="trailing" secondItem="89b-7N-ahh" secondAttribute="trailing" constant="8" id="dMa-uA-QRi"/>
+                                                <constraint firstItem="89b-7N-ahh" firstAttribute="centerY" secondItem="UNX-Lb-bMj" secondAttribute="centerY" id="fTE-GZ-avw"/>
                                                 <constraint firstAttribute="bottom" secondItem="89b-7N-ahh" secondAttribute="bottom" constant="8" id="ms1-ME-n3P"/>
                                                 <constraint firstItem="Gi8-eO-VK6" firstAttribute="top" secondItem="W58-fc-MVi" secondAttribute="topMargin" constant="10" id="q2J-OA-abp"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="btnStar" destination="UNX-Lb-bMj" id="gjm-yv-uxH"/>
                                             <outlet property="imgImageView" destination="5gk-Rd-ulu" id="dE6-qc-TGd"/>
                                             <outlet property="lblOverview" destination="0Rv-NE-H2s" id="JdD-op-ujP"/>
                                             <outlet property="lblTitle" destination="Gi8-eO-VK6" id="gxz-WQ-DAL"/>
@@ -193,6 +207,7 @@
     </scenes>
     <resources>
         <image name="square.and.pencil" catalog="system" width="128" height="115"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
