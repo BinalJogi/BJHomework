@@ -22,7 +22,7 @@ class MovieViewModel{
     var count: Int { filteredData.count }
     func getTitle(at row: Int)-> String { filteredData[row].originalTitle }
     func getOverview(at row: Int)-> String { filteredData[row].overview}
-    
+    func getImagePath(at row : Int)-> String {filteredData[row].posterPath}
     
     //MARK:- private properties
      var movies = [Movie]()

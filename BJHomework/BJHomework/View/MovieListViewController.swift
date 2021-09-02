@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MovieListViewController: UIViewController {
     
@@ -84,42 +85,21 @@ extension MovieListViewController: UITableViewDataSource {
         if selectedIndex == 0 {
              title = viewModel.getTitle(at: row)
              overview = viewModel.getOverview(at: row)
-        }else{
+        }
+        else{
             title = viewModel.favArrayMovies[row].originalTitle
             overview = viewModel.favArrayMovies[row].overview
         }
         
+
+        cell.imgImageView.sd_setImage(with: URL(string: "https://image.tmdb.org/t/p/w200\(viewModel.getImagePath(at: row))"))
+
         cell.btnStar.tintColor = viewModel.movies[row].isFavourite ? UIColor.red : .lightGray
-        
-        cell.configureCell(title: title, overview: overview, imageData: nil)
-        cell.link = self
+        cell.configureCell(title: title, overview: overview, imageData: nil, row: row)
+        cell.delegate = self
         return cell
     }
-    
-    func favourite(cell : MovieCell){
-        let indexPathTapped = tableView.indexPath(for: cell)
-        let favourites = viewModel.filteredData[indexPathTapped!.row].isFavourite
-        let movie = viewModel.filteredData[indexPathTapped!.row]
-        print(movie)
-        if favourites {
-            viewModel.favArrayMovies.remove(object: movie)
-        }else{
-            viewModel.favArrayMovies.append(movie)
-        }
-        viewModel.filteredData[indexPathTapped!.row].isFavourite = !favourites
-        
-        tableView.reloadRows(at: [indexPathTapped!], with: .fade)
-//        DispatchQueue.main.async {
-//            self.tableView.reloadData()
-//        }
-    }
 }
-
-//extension MovieListViewController: UITableViewDelegate{
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 100.0
-//    }
-//}
 
 extension MovieListViewController: UISearchBarDelegate{
     
@@ -144,21 +124,24 @@ extension MovieListViewController: UISearchBarDelegate{
     }
 }
 
-extension Array where Element: Equatable {
-
-    // Remove first collection element that is equal to the given `object`:
-    mutating func remove(object: Element) {
-        guard let index = firstIndex(of: object) else {return}
-        remove(at: index)
+extension MovieListViewController: MovieCellDelegate {
+    
+    func favourite(row: Int) {
+        
+        let movie = viewModel.filteredData[row]
+        let favourites = movie.isFavourite
+        print(movie)
+        if favourites {
+            viewModel.favArrayMovies.remove(at: row)
+        }else{
+            viewModel.favArrayMovies.append(movie)
+        }
+        viewModel.filteredData[row].isFavourite = !favourites
+        tableView.reloadData()
     }
-
+    
+    func showDetail(row: Int) {
+        print("show details")
+    }
+    
 }
-
-
-
-
-
-
-
-
-

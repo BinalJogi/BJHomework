@@ -8,34 +8,41 @@
 import Foundation
 import UIKit
 
+protocol MovieCellDelegate: AnyObject {
+    func favourite(row: Int)
+    func showDetail(row: Int)
+}
+
 class MovieCell: UITableViewCell {
 
     static let identifier = "MovieCell"
-    var link : MovieListViewController?
+    weak var delegate: MovieCellDelegate?
 
     @IBOutlet private weak var lblTitle: UILabel!
     @IBOutlet private weak var lblOverview: UILabel!
-    @IBOutlet private weak var imgImageView: UIImageView!
+    @IBOutlet weak var imgImageView: UIImageView!
     @IBOutlet weak var btnStar: UIButton!
+    private var row = 0
     
-    func configureCell(title: String?, overview: String?, imageData: Data? ){
+    func configureCell(title: String?,
+                       overview: String?,
+                       imageData: Data?,
+                       row: Int){
         
         lblTitle.text = title
         lblOverview.text = overview
         imgImageView.image = nil
+        
         if let data = imageData {
             imgImageView.image = UIImage(data: data)
         }
+        self.row = row
     }
     
     @IBAction func btnShowDeatils(_ sender: Any) {
+        delegate?.showDetail(row: row)
     }
     @IBAction func btnStar(_ sender: Any) {
-        btnStar.addTarget(self, action: #selector(markAsFavourite), for: .touchUpInside)
+        delegate?.favourite(row: row)
     }
-    @objc func markAsFavourite(){
-        print("Mark as Fav")
-        link?.favourite(cell: self)
-    }
-    
 }
