@@ -90,8 +90,6 @@ extension MovieListViewController: UITableViewDataSource {
             title = viewModel.favArrayMovies[row].originalTitle
             overview = viewModel.favArrayMovies[row].overview
         }
-        
-
         cell.imgImageView.sd_setImage(with: URL(string: "https://image.tmdb.org/t/p/w200\(viewModel.getImagePath(at: row))"))
 
         cell.btnStar.tintColor = viewModel.movies[row].isFavourite ? UIColor.red : .lightGray
@@ -141,7 +139,7 @@ extension MovieListViewController: MovieCellDelegate {
     }
     
     func showDetail(row: Int) {
-        print("show details")
+        print("show details with indexpath as row")
     }
     
 }
